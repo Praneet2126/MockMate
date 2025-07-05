@@ -31,7 +31,12 @@ const FormField = <T extends FieldValues>({
       <FormItem>
         <FormLabel className="label">{label}</FormLabel>
         <FormControl>
-          <Input type={type} className="input" placeholder={placeholder} {...field} />
+          <Input
+            type={type}
+            className="input"
+            placeholder={placeholder}
+            {...field}
+          />
         </FormControl>
         <FormMessage />
       </FormItem>

@@ -1,4 +1,4 @@
-import { CreateAssistantDTO } from "@vapi-ai/web/dist/api";
+import { CreateAssistantDTO, CreateWorkflowDTO } from "@vapi-ai/web/dist/api";
 import { z } from "zod";
 
 export const mappings = {
@@ -227,3 +227,128 @@ export const dummyInterviews: Interview[] = [
     createdAt: "2024-03-14T15:30:00Z",
   },
 ];
+
+export const generator: CreateWorkflowDTO = {
+  name: "MockMate Interview",
+  nodes: [
+    {
+      name: "introduction",
+      type: "conversation",
+      isStart: true,
+      prompt:
+        "Greet the user. Inform them that you will get some information from them, to create a perfect interview. Ask the caller for data required to extract. Ask the questions one by one, and await an answer.",
+      variableExtractionPlan: {
+        output: [
+          {
+            title: "role",
+            type: "string",
+            enum: [],
+            description: "What role should would you like to train for?",
+          },
+          {
+            title: "level",
+            type: "string",
+            enum: ["Entry", "Mid", "Senior"],
+            description: "The job experience level.",
+          },
+          {
+            title: "amount",
+            type: "number",
+            enum: [],
+            description: "How many questions would you like to generate?",
+          },
+          {
+            title: "techstack",
+            type: "string",
+            enum: [],
+            description:
+              "A list of technologies to cover during the job interview.",
+          },
+          {
+            title: "type",
+            type: "string",
+            enum: ["Technical", "Behavioral", "Mixed"],
+            description: "What type of the interview should it be?",
+          },
+        ],
+      },
+    },
+    {
+      name: "API Request",
+      type: "tool",
+      tool: {
+        name: "getUserData",
+        type: "apiRequest",
+        method: "POST",
+        url: "https://mockmate-hazel.vercel.app/api/vapi/generate",
+        body: {
+          type: "object",
+          required: ["role", "type", "techstack", "level", "userid", "amount"],
+          properties: {
+            role: { type: "string", value: "{{role}}" },
+            type: { type: "string", value: "{{type}}" },
+            level: { type: "string", value: "{{level}}" },
+            amount: { type: "number", value: "{{amount}}" },
+            userid: { type: "string", value: "{{userid}}" },
+            techstack: { type: "string", value: "{{techstack}}" },
+          },
+        },
+        messages: [
+          {
+            type: "request-start",
+            content: "Please hold on. I'm sending a request to the app.",
+            blocking: true,
+          },
+          {
+            type: "request-complete",
+            role: "assistant",
+            content:
+              "The request has been sent and your interview has been generated. Thank you for the call!",
+            endCallAfterSpokenEnabled: true,
+          },
+          {
+            type: "request-failed",
+            content:
+              "Oops! Looks like something went wrong when sending the data to the app! Please try again.",
+            endCallAfterSpokenEnabled: true,
+          },
+        ],
+      },
+    },
+    {
+      name: "hangup_1751712463423",
+      type: "tool",
+      tool: {
+        type: "endCall",
+        messages: [
+          {
+            type: "request-start",
+            content:
+              "Everything has been generated. I'll redirect you to the dashboard now. thanks for the call!",
+            blocking: true,
+          },
+        ],
+      },
+    },
+  ],
+  edges: [
+    {
+      from: "introduction",
+      to: "API Request",
+      condition: {
+        type: "ai",
+        prompt: "If user provided all the variables.",
+      },
+    },
+    {
+      from: "API Request",
+      to: "hangup_1751712463423",
+      condition: {
+        type: "ai",
+        prompt: "",
+      },
+    },
+  ],
+  globalPrompt:
+    "You are a voice assistant helping with creating new AI interviewers. Your task is to collect data from the user. Remember that this is a voice conversation - do not use any special characters.",
+};

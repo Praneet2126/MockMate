@@ -1,3 +1,5 @@
+"use server";
+
 import { db } from "@/firebase/admin";
 import { feedbackSchema } from "@/public/constants";
 import { google } from "@ai-sdk/google";
