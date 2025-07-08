@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
-import { generator, interviewer } from "@/public/constants";
+import { getWorkflowById, interviewer } from "@/public/constants";
 import { createFeedback } from "@/lib/actions/general.action";
 
 enum CallStatus {
@@ -118,7 +118,11 @@ const Agent = ({
     setCallStatus(CallStatus.CONNECTING);
 
     if (type === "generate") {
-      await vapi.start(undefined, undefined, undefined, generator, {
+      const workflow = await getWorkflowById(
+        process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!
+      );
+
+      await vapi.start(undefined, undefined, undefined, workflow.id, {
         variableValues: {
           username: userName,
           userid: userId,
@@ -167,7 +171,7 @@ const Agent = ({
         <div className="card-border">
           <div className="card-content">
             <Image
-              src="/user-avatar.png"
+              src="/praneet.jpg"
               alt="profile-image"
               width={539}
               height={539}
