@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 MockMate – Interviews in Your Pocket
 
-## Getting Started
+MockMate is an AI-powered interview preparation platform that simulates **real-time voice-based interviews** using conversational agents. Designed to help candidates prepare smarter and faster, MockMate enables users to **generate customized interview sessions** and practice them interactively — all from the comfort of their browser.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+- 🎤 **Voice-Driven Interaction** – Simulated job interviews via two-way voice conversations using Vapi AI.
+- 🧹 **Dynamic Interview Generation** – Interviews are tailored based on your role, experience level, tech stack, and preferred question types.
+- 💡 **Custom Workflows with Vapi** – Personalized voice workflows to conduct interviews like a real human.
+- 🛆 **Tech Stack**
+  - **Frontend:** Next.js, Tailwind CSS
+  - **Database:** Firebase
+  - **AI Voice Agent:** Vapi
+  - **Authentication:** Firebase Auth
+---
+
+## 🌟 Why MockMate?
+
+> “Because preparing for interviews should feel like *talking to a person*, not solving a Google Doc.”
+
+MockMate takes traditional mock interviews to the next level by offering:
+- Real-time **AI voice conversations**
+- Smart question generation via your preferences
+- Workflow-based design that mimics actual interview dynamics
+
+---
+
+## 📸 UI Screenshots
+
+Check out the live link attached with this repository to test.
+
+![HomePage](/public/screenshot1.png)  
+![InterviewPage](/public/screenshot2.png)  
+![FeedbackPage](/public/screenshot3.png)  
+---
+
+## 🛠️ Installation & Setup
+
+### Prerequisites
+- Node.js
+- Firebase project with necessary environment variables
+- Vapi account with a configured workflow
+
+### 1. Clone the Repo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/mockmate.git
+cd mockmate
+```
+### 2. Install Dependencies
+
+```bash
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Configure Environment
+Create a .env.local file and add:
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=your_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
+NEXT_PUBLIC_VAPI_WORKFLOW_ID=your_workflow_id
+NEXT_PUBLIC_VAPI_WEB_TOKEN=your_vapi_token
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Run and Enjoy
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💬 Feedback
+Found a bug or want to contribute?
+Open an issue or submit a pull request!
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details
