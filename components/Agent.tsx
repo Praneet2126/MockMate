@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
 import { getWorkflowById, interviewer } from "@/public/constants";
 import { createFeedback } from "@/lib/actions/general.action";
+import { toast } from "sonner";
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -63,6 +64,8 @@ const Agent = ({
 
     const onError = (error: Error) => {
       console.log("Error:", error);
+      toast.error("Please Purchase More Vapi Credits or Upgrade Your Plan Before Proceeding.");
+      redirect("/");
     };
 
     vapi.on("call-start", onCallStart);
